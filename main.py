@@ -1,12 +1,9 @@
-import sys
-import time
+import http.server
+import socketserver
 
+PORT = 8080
+Handler = http.server.SimpleHTTPRequestHandler
 
-def main():
-    args = sys.argv[1:]
-    x = args[0]
-    print("Hello " + x + "!")
-    time.sleep(5 * 60)
-
-if    __name__    ==     "__main__"      :
-   main()
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print("serving at port", PORT)
+    httpd.serve_forever()
